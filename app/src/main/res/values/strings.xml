@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Bookmarker</string>
+    <string name="listing_fetch_error_message">Bookmarks could not be fetched!</string>
+    <string name="bookmark_create_success_msg">Bookmark uploaded successfully!</string>
+    <string name="bookmark_create_failure_msg">Upload failed!</string>
+    <string name="no_bookmarks_found">No bookmarks found!</string>
+    <string name="loading">Loading...</string>
+</resources>

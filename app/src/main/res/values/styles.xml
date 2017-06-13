@@ -1,0 +1,45 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ListingMugshot" parent="AppTheme">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/rounded_corners</item>
+    </style>
+
+    <style name="ListingTextview" parent="AppTheme">
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:lines">1</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="ListingTitleText" parent="ListingTextview">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="ListingLinkText" parent="ListingTextview">
+        <item name="android:textColor">@color/link_blue</item>
+    </style>
+
+</resources>
