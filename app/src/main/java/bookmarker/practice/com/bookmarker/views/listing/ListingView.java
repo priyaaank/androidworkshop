@@ -13,4 +13,8 @@ public interface ListingView {
     void refreshView();
 
     void hideLoadingView();
+
+    void toggleListViewVisibility(Boolean visible);
+
+    void toggleEmptyViewVisibility(Boolean visible);
 }

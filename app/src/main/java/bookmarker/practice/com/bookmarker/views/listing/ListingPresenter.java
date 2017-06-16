@@ -27,14 +27,17 @@ public class ListingPresenter {
     }
 
     void onActivityCreate() {
+        this.listingView.toggleEmptyViewVisibility(Boolean.TRUE);
         this.listingView.showLoadingView();
         this.listingView.setupAdapter();
         loadBookmarks();
     }
 
     void onStop() {
-        this.listCancellableCallback.cancel();
-        this.listCancellableCallback = null;
+        if (listCancellableCallback != null) {
+            this.listCancellableCallback.cancel();
+            this.listCancellableCallback = null;
+        }
     }
 
     Bookmark getBookmarkAtPos(int index) {
@@ -57,25 +60,35 @@ public class ListingPresenter {
         this.bookmarkListingCallback = new ResponseCallback<List<Bookmark>>() {
             @Override
             public void success(List<Bookmark> bookmarks) {
-                ListingPresenter.this.bookmarks = bookmarks;
-                ListingPresenter.this.refreshView();
-                ListingPresenter.this.listCancellableCallback = null;
+                showLoadedBookmarks(bookmarks);
             }
 
             @Override
             public void failure(Throwable error) {
-                ListingPresenter.this.listCancellableCallback = null;
-                ListingPresenter.this.showErrorMessage();
+                handleBookmarkLoadFailure();
             }
         };
     }
 
-    private void showErrorMessage() {
-        this.listingView.showErrorMessage(R.string.listing_fetch_error_message);
+    private void handleBookmarkLoadFailure() {
+        this.listCancellableCallback = null;
+        this.showErrorMessage();
+        this.listingView.toggleEmptyViewVisibility(Boolean.TRUE);
+        this.listingView.toggleListViewVisibility(Boolean.FALSE);
+        this.listingView.hideLoadingView();
     }
 
-    private void refreshView() {
+    private void showLoadedBookmarks(List<Bookmark> bookmarks) {
+        this.listCancellableCallback = null;
+        this.bookmarks = bookmarks;
         this.listingView.refreshView();
+        this.listingView.toggleEmptyViewVisibility(Boolean.FALSE);
+        this.listingView.toggleListViewVisibility(Boolean.TRUE);
+        this.listingView.hideLoadingView();
+    }
+
+    private void showErrorMessage() {
+        this.listingView.showErrorMessage(R.string.listing_fetch_error_message);
         this.listingView.hideLoadingView();
     }
 

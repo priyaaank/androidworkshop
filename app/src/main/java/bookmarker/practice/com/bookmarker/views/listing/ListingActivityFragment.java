@@ -40,11 +40,6 @@ public class ListingActivityFragment extends ListFragment implements ListingView
     }
 
     @Override
-    public void showLoadingView() {
-        ProgressDialogFragment.newInstance().show(getFragmentManager().beginTransaction(), PROGRESS_FRAGMENT_TAG);
-    }
-
-    @Override
     public void showErrorMessage(int message) {
         Toast.makeText(getContext(), getString(message), Toast.LENGTH_LONG).show();
     }
@@ -55,11 +50,24 @@ public class ListingActivityFragment extends ListFragment implements ListingView
     }
 
     @Override
+    public void showLoadingView() {
+        ProgressDialogFragment.newInstance().show(getFragmentManager().beginTransaction(), PROGRESS_FRAGMENT_TAG);
+    }
+
+    @Override
     public void hideLoadingView() {
-        this.view.findViewById(R.id.included_empty_view).setVisibility(View.GONE);
-        getListView().setVisibility(View.VISIBLE);
         ProgressDialogFragment progressDialog = (ProgressDialogFragment) getFragmentManager().findFragmentByTag(PROGRESS_FRAGMENT_TAG);
         progressDialog.dismiss();
+    }
+
+    @Override
+    public void toggleListViewVisibility(Boolean visible) {
+        getListView().setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void toggleEmptyViewVisibility(Boolean visible) {
+        this.view.findViewById(R.id.included_empty_view).setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     @Override
