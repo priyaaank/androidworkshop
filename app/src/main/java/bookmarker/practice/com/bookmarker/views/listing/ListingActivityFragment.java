@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import bookmarker.practice.com.bookmarker.R;
-import bookmarker.practice.com.bookmarker.services.ManagedUrlService;
+import bookmarker.practice.com.bookmarker.services.RetrofitWebClient;
 import bookmarker.practice.com.bookmarker.views.progress.ProgressDialogFragment;
 
 public class ListingActivityFragment extends ListFragment implements ListingView {
@@ -23,7 +23,7 @@ public class ListingActivityFragment extends ListFragment implements ListingView
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.presenter = new ListingPresenter(this, ManagedUrlService.getInstance());
+        this.presenter = new ListingPresenter(this, RetrofitWebClient.getInstance());
         view = inflater.inflate(R.layout.fragment_listing, container, false);
         return view;
     }

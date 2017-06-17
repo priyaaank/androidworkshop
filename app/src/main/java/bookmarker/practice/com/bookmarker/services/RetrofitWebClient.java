@@ -15,12 +15,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ManagedUrlService {
+public class RetrofitWebClient implements WebClient {
 
-    private ManagedUrlRepo bookmarkRepo;
-    private static ManagedUrlService instance;
+    private RetrofitWebRepo bookmarkRepo;
+    private static RetrofitWebClient instance;
 
-    private ManagedUrlService() {
+    private RetrofitWebClient() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -29,17 +29,17 @@ public class ManagedUrlService {
         Retrofit retrofit = new Retrofit.Builder().client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("http://10.0.2.2:4567/").build();
-        this.bookmarkRepo = retrofit.create(ManagedUrlRepo.class);
+        this.bookmarkRepo = retrofit.create(RetrofitWebRepo.class);
     }
 
-    public static ManagedUrlService getInstance() {
+    public static RetrofitWebClient getInstance() {
         if (instance == null) {
-            instance = new ManagedUrlService();
+            instance = new RetrofitWebClient();
         }
         return instance;
     }
 
-    public CancellableCallback<List<BookmarkRecord>> listBookmarks(final ResponseCallback<List<Bookmark>> responseCallback) {
+    public CancellableCallback listBookmarks(final ResponseCallback<List<Bookmark>> responseCallback) {
         Call<List<BookmarkRecord>> listCall = this.bookmarkRepo.listBookmarks();
         listCall.enqueue(new Callback<List<BookmarkRecord>>() {
             @Override
@@ -56,10 +56,10 @@ public class ManagedUrlService {
                 responseCallback.failure(t);
             }
         });
-        return new CancellableCallback<>(listCall);
+        return new CancellableRetrofitCallback(listCall);
     }
 
-    public CancellableCallback<BookmarkRecord> storeUrl(String url, final ResponseCallback<Bookmark> responseCallback) {
+    public CancellableCallback storeUrl(String url, final ResponseCallback<Bookmark> responseCallback) {
         Call<BookmarkRecord> uploadFileCall = this.bookmarkRepo.uploadFile(new BookmarkRecord(url));
         uploadFileCall.enqueue(new Callback<BookmarkRecord>() {
             @Override
@@ -73,7 +73,7 @@ public class ManagedUrlService {
                 responseCallback.failure(t);
             }
         });
-        return new CancellableCallback<>(uploadFileCall);
+        return new CancellableRetrofitCallback(uploadFileCall);
     }
 
 }

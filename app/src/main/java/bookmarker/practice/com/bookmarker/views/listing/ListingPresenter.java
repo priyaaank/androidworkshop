@@ -6,22 +6,21 @@ import java.util.List;
 import bookmarker.practice.com.bookmarker.R;
 import bookmarker.practice.com.bookmarker.domain.Bookmark;
 import bookmarker.practice.com.bookmarker.services.CancellableCallback;
-import bookmarker.practice.com.bookmarker.services.ManagedUrlService;
 import bookmarker.practice.com.bookmarker.services.ResponseCallback;
-import bookmarker.practice.com.bookmarker.services.model.BookmarkRecord;
+import bookmarker.practice.com.bookmarker.services.WebClient;
 
 public class ListingPresenter {
 
     private ListingView listingView;
-    private ManagedUrlService managedUrlService;
+    private WebClient webClient;
     private ResponseCallback<List<Bookmark>> bookmarkListingCallback;
     private List<Bookmark> bookmarks;
-    private CancellableCallback<List<BookmarkRecord>> listCancellableCallback;
+    private CancellableCallback listCancellableCallback;
 
 
-    ListingPresenter(ListingView listingView, ManagedUrlService managedUrlService) {
+    ListingPresenter(ListingView listingView, WebClient webClient) {
         this.listingView = listingView;
-        this.managedUrlService = managedUrlService;
+        this.webClient = webClient;
         this.bookmarks = new ArrayList<>();
         initializeCallback();
     }
@@ -53,7 +52,7 @@ public class ListingPresenter {
     }
 
     private void loadBookmarks() {
-        listCancellableCallback = managedUrlService.listBookmarks(this.bookmarkListingCallback);
+        listCancellableCallback = webClient.listBookmarks(this.bookmarkListingCallback);
     }
 
     private void initializeCallback() {

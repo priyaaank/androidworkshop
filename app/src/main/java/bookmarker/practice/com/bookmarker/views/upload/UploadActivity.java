@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import bookmarker.practice.com.bookmarker.services.ManagedUrlService;
+import bookmarker.practice.com.bookmarker.services.RetrofitWebClient;
 
 public class UploadActivity extends Activity implements UploadView {
 
@@ -14,7 +14,7 @@ public class UploadActivity extends Activity implements UploadView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.presenter = new UploadPresenter(this, ManagedUrlService.getInstance());
+        this.presenter = new UploadPresenter(this, RetrofitWebClient.getInstance());
         this.presenter.onCreate();
         this.presenter.onIntentReceived(getIntent());
     }

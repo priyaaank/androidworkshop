@@ -5,20 +5,19 @@ import android.content.Intent;
 import bookmarker.practice.com.bookmarker.R;
 import bookmarker.practice.com.bookmarker.domain.Bookmark;
 import bookmarker.practice.com.bookmarker.services.CancellableCallback;
-import bookmarker.practice.com.bookmarker.services.ManagedUrlService;
 import bookmarker.practice.com.bookmarker.services.ResponseCallback;
-import bookmarker.practice.com.bookmarker.services.model.BookmarkRecord;
+import bookmarker.practice.com.bookmarker.services.WebClient;
 
 public class UploadPresenter {
 
     private UploadView view;
-    private ManagedUrlService managedUrlService;
+    private WebClient webClient;
     private ResponseCallback<Bookmark> bookmarkCallback;
-    private CancellableCallback<BookmarkRecord> bookmarkRecordCancellableCallback;
+    private CancellableCallback bookmarkRecordCancellableCallback;
 
-    UploadPresenter(UploadView view, ManagedUrlService managedUrlService) {
+    UploadPresenter(UploadView view, WebClient webClient) {
         this.view = view;
-        this.managedUrlService = managedUrlService;
+        this.webClient = webClient;
     }
 
     void onCreate() {
@@ -52,6 +51,6 @@ public class UploadPresenter {
     }
 
     private void storeLink(String link) {
-        bookmarkRecordCancellableCallback = this.managedUrlService.storeUrl(link, this.bookmarkCallback);
+        bookmarkRecordCancellableCallback = this.webClient.storeUrl(link, this.bookmarkCallback);
     }
 }

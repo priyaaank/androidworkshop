@@ -8,7 +8,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface ManagedUrlRepo {
+public interface RetrofitWebRepo {
 
     @GET("/bookmarks")
     Call<List<BookmarkRecord>> listBookmarks();

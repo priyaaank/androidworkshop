@@ -1,17 +1,7 @@
 package bookmarker.practice.com.bookmarker.services;
 
-import retrofit2.Call;
+public interface CancellableCallback {
 
-public class CancellableCallback<T> {
-
-    private Call<T> wrappedCallback;
-
-    public CancellableCallback(Call<T> wrappedCallback) {
-        this.wrappedCallback = wrappedCallback;
-    }
-
-    public void cancel() {
-        this.wrappedCallback.cancel();
-    }
+    void cancel();
 
 }

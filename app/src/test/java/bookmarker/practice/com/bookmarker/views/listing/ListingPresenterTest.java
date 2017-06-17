@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import bookmarker.practice.com.bookmarker.services.ManagedUrlService;
+import bookmarker.practice.com.bookmarker.services.RetrofitWebClient;
 
 import static org.mockito.Mockito.verify;
 
@@ -19,7 +19,7 @@ public class ListingPresenterTest {
     private ListingView listingView;
 
     @Mock
-    private ManagedUrlService managedUrlService;
+    private RetrofitWebClient managedUrlService;
 
     @Before
     public void setUp() {
